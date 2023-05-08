@@ -30,12 +30,13 @@ public class TurretAI : MonoBehaviour
     {
         shoot = GetComponent<Shoot>();
         GetComponent<Aim>().maxRange = attackRange;
+        player = GameObject.Find("Player").GetComponent<Transform>();
     }
 
     private void Start()
     {
         curCharge = ultimateCharge;
-        _bm = GetComponent<BulletManager>();
+        _bm = GetComponentInChildren<BulletManager>();
     }
 
     // Update is called once per frame
@@ -90,7 +91,7 @@ public class TurretAI : MonoBehaviour
         usingUltimate = false;
     }
 
-    private void RotateToPlayer() => transform.up = player.position - transform.position;
+    private void RotateToPlayer() => transform.up = (player.position + (player.up * 5) - transform.position);
 
     private void OnDrawGizmos()
     {
